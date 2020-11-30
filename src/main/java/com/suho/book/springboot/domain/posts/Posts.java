@@ -1,6 +1,7 @@
 package com.suho.book.springboot.domain.posts;
 
 
+import com.suho.book.springboot.domain.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +11,7 @@ import javax.persistence.*;
 @Getter // 선언된 모든 필드의 get 메소드를 생성 ( 롬복의 어노테이션 )
 @NoArgsConstructor // 기본 생성자 자동 추가 (롬복의 어노테이션)
 @Entity // 테이블과 링크될 클래스임을 나타낸다. ( JPA의 어노테이션 )
-public class Posts {
+public class Posts extends BaseTimeEntity {
 
     @Id // 해당 테이블의 PK 필드를 나타낸다.
     @GeneratedValue(strategy = GenerationType.IDENTITY) // PK의 생성 규칙을 나타낸다.
