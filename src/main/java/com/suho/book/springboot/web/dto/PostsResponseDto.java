@@ -1,7 +1,11 @@
 package com.suho.book.springboot.web.dto;
 
 import com.suho.book.springboot.domain.posts.Posts;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@Getter
+@NoArgsConstructor
 public class PostsResponseDto {
 
     private Long id;
