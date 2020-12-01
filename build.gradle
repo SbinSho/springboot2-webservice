@@ -35,5 +35,8 @@ dependencies {
 
     compile('org.projectlombok:lombok')
 
+    // 머스테치
+    compile('org.springframework.boot:spring-boot-starter-mustache')
+
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
