@@ -2,3 +2,9 @@
 
 .gradle
 .idea
+
+### Java template
+*.class
+
+# IntelliJ project files
+build
