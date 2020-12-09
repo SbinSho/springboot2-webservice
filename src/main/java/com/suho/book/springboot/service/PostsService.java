@@ -2,7 +2,7 @@ package com.suho.book.springboot.service;
 
 import com.suho.book.springboot.domain.posts.Posts;
 import com.suho.book.springboot.domain.posts.PostsRepository;
-import com.suho.book.springboot.web.dto.PostsListResponseDtd;
+import com.suho.book.springboot.web.dto.PostsListResponseDto;
 import com.suho.book.springboot.web.dto.PostsResponseDto;
 import com.suho.book.springboot.web.dto.PostsSaveRequestDto;
 import com.suho.book.springboot.web.dto.PostsUpdateRequestDto;
@@ -42,10 +42,18 @@ public class PostsService {
     }
 
     @Transactional(readOnly = true)
-    public List<PostsListResponseDtd> findAllDesc() {
+    public List<PostsListResponseDto> findAllDesc() {
         return postsRepository.findAllDesc().stream()
-                .map(PostsListResponseDtd::new)
+                .map(PostsListResponseDto::new)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void delete (Long id){
+        Posts posts = postsRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
+
+        postsRepository.delete(posts);
     }
 
 }
