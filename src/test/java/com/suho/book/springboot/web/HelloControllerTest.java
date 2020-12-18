@@ -1,9 +1,13 @@
 package com.suho.book.springboot.web;
 
+import com.suho.book.springboot.config.auth.SecurityConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -15,12 +19,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 @RunWith(SpringRunner.class) // JUnit에 내장된 실행자 외에 다른 실행자를 실행 시킨다. ( SpringRunner.class )
-@WebMvcTest(controllers = HelloContorller.class) // Web(Spring MVC)에 집중할 수 있는 어노테이션 이다.
+@WebMvcTest(controllers = HelloContorller.class, excludeFilters = {
+        @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = SecurityConfig.class)
+
+}) // Web(Spring MVC)에 집중할 수 있는 어노테이션 이다.
 public class HelloControllerTest {
 
     @Autowired // 빈 자동 주입.
     private MockMvc mvc; // 웹API를 테스트할 때 사용 한다.
 
+    @WithMockUser(roles="USER")
     @Test
     public void hello가_리턴된다() throws Exception {
         String hello = "hello";
@@ -28,6 +36,7 @@ public class HelloControllerTest {
         mvc.perform(get("/hello")).andExpect(status().isOk()).andExpect(content().string(hello));
     }
 
+    @WithMockUser(roles="USER")
     @Test
     public void helloDto가_리턴된다() throws Exception {
         String name = "hello";
